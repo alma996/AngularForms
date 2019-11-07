@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from './user';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,16 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   topics = ['Angular', 'React', 'Vue'];
+
+  topicHasError = true;
+
+  userModel = new User('Armin', 'armin@test.com', 555555, 'default', 'morning', true);
+
+  validateTopic(value){
+    if(value === 'default'){
+      this.topicHasError=true;
+    }else{
+      this.topicHasError=false;
+    }
+  }
 }
