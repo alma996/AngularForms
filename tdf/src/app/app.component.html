@@ -1,12 +1,16 @@
-<div class="container-fluid mb-5">
+ <div class="container-fluid mb-5">
   <h1>Bootcamp Enrollment Form</h1>
-  <form #userForm="ngForm">
+<div class="alert alert-danger" *ngIf="errorMsg">
+{{errorMsg}}
+</div>
+  <form #userForm="ngForm" *ngIf="!submitted" (ngSubmit)="onSubmit(userForm)" novalidate>
     {{userForm.form.valid}}
 
     {{userForm.value | json}}
     <hr />
     {{userModel | json}}
-<!-- Grupise ngModel (primjer)
+ 
+<!-- Grupise ngModel (primjer)-->
   <div ngModelGroup="address">
     <div class="form-group">
         <label>Street</label>
@@ -28,13 +32,13 @@
         <input type="text" class="form-control" name=postalCode ngModel>
     </div>
   </div>
--->
 
-    <div class="form-group"><!--Kod htmla imamo ngModel NgModelGroup ngForm-->
+
+    <div class="form-group"> <!--Kod htmla imamo ngModel NgModelGroup ngForm-->
         <label>Name</label>
         <input type="text" required #name="ngModel" [class.is-invalid]="name.invalid && name.touched" class="form-control" name="userName" [(ngModel)]="userModel.name"><!--Dodaje ngModel kako bi se vrijednost iz input a ispisivala u userForm value, requiredand #name kreira property ispisuje true or false-->
         <small class="text-danger" [class.d-none]="name.valid || name.untouched">Name is required</small>
-      </div><!-- dodaje [class i naziv clase] ako se it true promjeni u false. Koristi class taxt danger iz bootstrapa kako bi se pojavio text ako ispuni zadani uvjet-->
+      </div> <!-- dodaje [class i naziv clase] ako se it true promjeni u false. Koristi class taxt danger iz bootstrapa kako bi se pojavio text ako ispuni zadani uvjet-->
 
     {{name.valid}}
 
@@ -46,10 +50,11 @@
       <div class="form-group">
           <label>Phone</label>
           <input type="tel" #phone="ngModel" required pattern="^\d{10}$" [class.is-invalid]="phone.invalid && phone.touched" class="form-control"
-           name="phone" [(ngModel)]="userModel.phone">
+           name="phone" [(ngModel)]="userModel.phone">-->
            <!--<small class="text-danger" [class.d-none]="phone.valid || phone.untouched">Phone number is required and must be 10 digits</small>
         provjerava da li ima 1 brojeva ako nema pocrveni-->
-      <div *ngIf="phone.errors && (phone.invalid || phone.touched)">
+     
+        <div *ngIf="phone.errors && (phone.invalid || phone.touched)">
         <small class="text-danger" *ngIf="phone.errors.required">Phone number is required</small>
         <small class="text-danger" *ngIf="phone.errors.pattern">Phone number must be 10 digets</small>
 
@@ -88,3 +93,4 @@
 
   </form>
 </div>
+
